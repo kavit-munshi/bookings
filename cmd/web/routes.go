@@ -30,6 +30,9 @@ func routes(app *config.AppConfig) http.Handler {
 	//mux.Get("/greet/:name", http.HandlerFunc(handlers.Repo.Greet))
 	mux.Get("/greet/", http.HandlerFunc(handlers.Repo.Greet))
 
+	fileServer := http.FileServer(http.Dir("./static/"))
+	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
+
 	return mux
 
 }
